@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Draggable Link</title>
+    <style>
+        .draggable-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            cursor: move;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            const bookmarkURL = "javascript:(function() {var textarea = document.getElementById('message'); var submitButton = document.getElementById('quick_reply_submit'); if (textarea) { textarea.value = 'Hello, World! Thank you Mr. Robot for this neat trick'; } if (submitButton) { submitButton.click(); }})();";
+            const bookmarkTitle = "Fill and Submit";
+            const link = document.querySelector(".draggable-link");
+            link.setAttribute("href", bookmarkURL);
+            link.setAttribute("title", bookmarkTitle);
+            link.draggable = true;
+            link.addEventListener("dragstart", function(event) {
+                event.dataTransfer.setData("text/plain", bookmarkURL);
+                event.dataTransfer.setData("text/html", this.outerHTML);
+                event.dataTransfer.effectAllowed = "copy";
+            });
+        }
+    </script>
+</head>
+<body>
+    <a class="draggable-link" href="javascript:void(0);">Drag Me to Bookmark Bar</a>
+</body>
+</html>
